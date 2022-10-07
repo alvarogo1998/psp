@@ -2,18 +2,25 @@ package com.agalobr.psp_2022
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.agalobr.psp_2022.ut02.data.remote.RetrofitApiClient
+import android.util.Log
+import com.agalobr.psp_2022.ut02.ex01.data.remote.RetrofitApiClient
 
 class MainActivity : AppCompatActivity() {
 
-    val apiClient = RetrofitApiClient
+    val apiClient = RetrofitApiClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         Thread {
-            apiClient.getUsers()
+            val users = apiClient.getUsers()
+            Log.d("@dev", "Usuarios: $users")
+        }.start()
+
+        Thread {
+            val user = apiClient.getUser(1)
+            Log.d("@dev", "Usuario: $user")
         }.start()
     }
 }

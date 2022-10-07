@@ -10,6 +10,7 @@ class Ut01Ex01Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ut01ex01)
+
         val label: TextView = findViewById(R.id.label)
         //val label = findViewById<TextView>(R.id.label)
         label.text = getString(R.string.title)

@@ -1,6 +1,6 @@
-package com.agalobr.psp_2022.ut02.data.remote
+package com.agalobr.psp_2022.ut02.ex01.data.remote
 
-import com.agalobr.psp_2022.ut02.data.remote.models.UserApiModel
+import com.agalobr.psp_2022.ut02.ex01.data.remote.models.UserApiModel
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,8 +19,8 @@ class RetrofitApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     }
-    private fun buildApiEndPoints(): ApiEndPoints{
-        buildClient().create(ApiEndPoints::class.java)
+    private fun buildApiEndPoints(): ApiEndPoints {
+        return buildClient().create(ApiEndPoints::class.java)
     }
 
     fun getUsers(): List<UserApiModel>{
@@ -31,6 +31,16 @@ class RetrofitApiClient {
             users ?: emptyList<UserApiModel>() //Para resolver el nulo le decimos que nos devuelva una lista vacia
         }else{
             emptyList<UserApiModel>()
+        }
+    }
+
+    fun getUser(userId: Int): UserApiModel?{
+        val callUser = apiEndPoints.getUser(userId)
+        val response = callUser.execute()
+        return if (response.isSuccessful){
+            response.body()
+        }else{
+            null
         }
     }
 }
